@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyBrain</title>
+</head>
+<body>
+
+<h2 id="q">¿Qué es el potencial de acción?</h2>
+
+<button onclick="show()">Mostrar respuesta</button>
+
+<p id="a" style="display:none">
+Cambio rápido del potencial de membrana por entrada de Na⁺.
+</p>
+
+<div id="r" style="display:none">
+  <button onclick="rate(1)">No lo supe</button>
+  <button onclick="rate(3)">Me costó</button>
+  <button onclick="rate(5)">Fácil</button>
+</div>
+
+<script>
+let card = {}
+
+function show(){
+  a.style.display="block"
+  r.style.display="block"
+}
+
+function rate(v){
+  let d = v==1?1:v==3?3:7
+  let n = new Date()
+  n.setDate(n.getDate()+d)
+  alert("Repasar el: "+n.toDateString())
+}
+</script>
+
+</body>
+</html>
