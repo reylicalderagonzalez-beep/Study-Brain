@@ -2,52 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>StudyBrain</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<body style="font-family: -apple-system; padding: 20px;">
+
+<h1>StudyBrain</h1>
+<p id="estado">Cargando...</p>
 
 <script>
   const supabaseUrl = 'https://xjzstsihpqiwkocsqefr.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqenN0c2locHFpd2tvY3NxZWZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMTE0MTksImV4cCI6MjA4NDU4NzQxOX0.18whVFP0NOIVwo297vgLHK9u5HD_SQiGdFiOqoyGAcE'
+  const supabaseKey = 'PEGA_AQUI_TU_CLAVE_ANON_PUBLICA'
 
   const supabase = window.supabase.createClient(
     supabaseUrl,
     supabaseKey
   )
 
-  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqenN0c2locHFpd2tvY3NxZWZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMTE0MTksImV4cCI6MjA4NDU4NzQxOX0.18whVFP0NOIVwo297vgLHK9u5HD_SQiGdFiOqoyGAcE
+  async function iniciar() {
+    const resultado = await supabase.from('cards').select('*')
+
+    if (resultado.error) {
+      document.getElementById('estado').innerText =
+        'ERROR: ' + resultado.error.message
+    } else {
+      document.getElementById('estado').innerText =
+        'Conectado a Supabase ✅'
+    }
+  }
+
+  iniciar()
 </script>
-<body>
-  <div class="app">
 
-    <header>
-      <h1>StudyBrain</h1>
-      <p id="counter">Tarjetas hoy: 0</p>
-    </header>
-
-    <main>
-      <div class="card">
-        <h2 id="question">Cargando...</h2>
-        <p id="answer" class="hidden"></p>
-      </div>
-
-      <button id="showBtn">Mostrar respuesta</button>
-
-      <div class="ratings hidden">
-        <button onclick="rate(1)">No lo supe</button>
-        <button onclick="rate(3)">Me costó</button>
-        <button onclick="rate(5)">Fácil</button>
-      </div>
-    </main>
-
-  </div>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <script src="app.js"></script>
 </body>
 </html>
