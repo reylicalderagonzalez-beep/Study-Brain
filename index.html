@@ -1,16 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Prueba</title>
+  <title>StudyBrain</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont;
+      background: #f2f2f7;
+      padding: 20px;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #007aff;
+      color: white;
+      font-weight: bold;
+    }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1 id="texto">Cargando…</h1>
+<h2>StudyBrain 🧠</h2>
+<p id="estado">Cargando…</p>
+
+<input id="title" placeholder="Tema">
+<textarea id="question" placeholder="Pregunta"></textarea>
+<textarea id="answer" placeholder="Respuesta"></textarea>
+
+<button onclick="guardar()">Guardar</button>
+
+<div id="cards"></div>
 
 <script>
-  alert('JavaScript está funcionando');
-  document.getElementById('texto').innerText = 'JavaScript funciona ✅';
+  const supabase = window.supabase.createClient(
+    'https://xjzstsihpqiwkocsqefr.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqenN0c2locHFpd2tvY3NxZWZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMTE0MTksImV4cCI6MjA4NDU4NzQxOX0.18whVFP0NOIVwo297vgLHK9u5HD_SQiGdFiOqoyGAcE'
+  )
+
+  async function cargar() {
+    const resultado = await supabase.from('cards').select('*')
+
+    if (resultado.error) {
+      document.getElementById('estado').innerText =
+        'Error: ' + resultado.error.message
+      return
+    }
+
+    document.getElementById('estado').innerText = 'Conectado ✅'
+    mostrar(resultado.data)
+  }
+
+  async function guardar() {
+    await supabase.from('cards').insert([{
+      title: title.value,
+      question: question.value,
+      answer: answer.value
+    }])
+    cargar()
+  }
+
+  function mostrar(lista) {
+    const contenedor = document.getElementById('cards')
+    contenedor.innerHTML = ''
+    lista.reverse().forEach(c => {
+      contenedor.innerHTML += `
+        <div class="card">
+          <b>${c.title}</b>
+          <p>${c.question}</p>
+          <p><i>${c.answer}</i></p>
+        </div>`
+    })
+  }
+
+  cargar()
 </script>
 
 </body>
