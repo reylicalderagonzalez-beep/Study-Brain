@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyBrain</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <header>
+      <h1>StudyBrain</h1>
+      <p id="counter">Tarjetas hoy: 0</p>
+    </header>
+
+    <main>
+      <div class="card">
+        <h2 id="question">Cargando...</h2>
+        <p id="answer" class="hidden"></p>
+      </div>
+
+      <button id="showBtn">Mostrar respuesta</button>
+
+      <div class="ratings hidden">
+        <button onclick="rate(1)">No lo supe</button>
+        <button onclick="rate(3)">Me costó</button>
+        <button onclick="rate(5)">Fácil</button>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
