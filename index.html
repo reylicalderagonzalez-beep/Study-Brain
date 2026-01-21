@@ -6,7 +6,28 @@
   <title>StudyBrain</title>
   <link rel="stylesheet" href="style.css">
 </head>
+<!-- Conectar Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const supabaseUrl = 'https://xjzstsihpqiwkocsqefr.supabase.co'
+  const supabaseKey = 'PEGA_AQUI_TU_CLAVE_PUBLICA_ANONIMA'
+
+  const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  )
+
+  async function probarConexion() {
+    const resultado = await supabase
+      .from('cards')
+      .select('*')
+
+    console.log(resultado)
+  }
+
+  probarConexion()
+</script>
 <body>
   <div class="app">
 
